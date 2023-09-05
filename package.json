@@ -1,0 +1,22 @@
+{
+  "name": "workshop1_1dv610",
+  "version": "1.0.0",
+  "description": "Workshop 1",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JFSvensson/Workshop1_1DV610.git"
+  },
+  "keywords": [
+    "game"
+  ],
+  "author": "Gustav Nässlund, Fredrik Svensson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JFSvensson/Workshop1_1DV610/issues"
+  },
+  "homepage": "https://github.com/JFSvensson/Workshop1_1DV610#readme"
+}
