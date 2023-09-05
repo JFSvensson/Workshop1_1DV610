@@ -1,3 +1,5 @@
+
+// define variables for gameboard and cells and info text division
 const gameBoard = document.querySelector('.gameBoard');
 const cell_11 = document.querySelector('#cell-1-1');
 const cell_12 = document.querySelector('#cell-1-2');
@@ -13,12 +15,19 @@ const info = document.querySelector('#gameinfo');
 let turn = 1;
 info.textContent = `turn ${turn}`
 
+// add event listener to gameboard
 const clickListener = gameBoard.addEventListener ('click', clickHandler)
 
+/**
+ * Handles the click event on the gameboard.
+ * Check the board for a winner and if there is one, display the winner and remove the event listener.
+ *
+ * @param {event} event - the click event object.
+ */
 function clickHandler (event){
   info.textContent = `turn ${turn}`
   if (event.target.innerText === '') {
-    drawLogic(event.target);
+    drawSymbol(event.target);
     const id = event.target.attributes.id.nodeValue;
     const row = id.split('-')[1];
     const column = id.split('-')[2];
@@ -27,7 +36,12 @@ function clickHandler (event){
   }
 };
 
-function drawLogic (targetCell) {
+/**
+ * Draws the symbol in the target cell depending on the turn.
+ *
+ * @param {element} targetCell - the cell that was clicked.
+ */
+function drawSymbol (targetCell) {
   if (turn%2 === 0) {
   targetCell.innerText = 'O';
   } else {
@@ -36,7 +50,10 @@ function drawLogic (targetCell) {
   turn++;
 }
 
-
+/**
+ * Checks for winner and displays the winner or draw.
+ *
+ */
 function gameLogic () {
   checkHorizonWins();
   checkVerticalWins();
@@ -45,10 +62,10 @@ function gameLogic () {
   if (turn === 10) {
     info.textContent = `Draw`
     gameBoard.removeEventListener('click', clickHandler)
-    return
   }
 }
 
+// check for winner on horizontal rows
 function checkHorizonWins () {
   for (let i = 1; i < 4; i++){
     if (checkHorizontal(i)) {
@@ -59,6 +76,7 @@ function checkHorizonWins () {
   }
 }
 
+// check for winner on vertical columns
 function checkVerticalWins () {
   for (let i = 1; i < 4; i++) {
     if (checkVertical(i)) {
@@ -69,6 +87,7 @@ function checkVerticalWins () {
   }
 }
 
+// check for winner on diagonals
 function checkDiagonalWins() {
   if (checkDiagonal()) {
     info.textContent = `Winner ${checkDiagonal()}`
@@ -77,6 +96,7 @@ function checkDiagonalWins() {
   }
 }
 
+// check for winner on A column
 function checkHorizontal (column) {
   if(returnCellContent(1, column) === returnCellContent(2, column) && returnCellContent(2, column) === returnCellContent(3, column)) {
     if(returnCellContent(1, column) !== ''){
@@ -88,6 +108,7 @@ function checkHorizontal (column) {
   return false
 }
 
+// check for winner on A row
 function checkVertical (row) {
   if(returnCellContent(row, 1) === returnCellContent(row, 2) && returnCellContent(row, 2) === returnCellContent(row, 3)) {
     if(returnCellContent(row, 1) !== ''){
@@ -99,6 +120,7 @@ function checkVertical (row) {
   return false
 }
 
+// check for winner on diagonals
 function checkDiagonal () {
   if(returnCellContent(1, 1) === returnCellContent(2, 2) && returnCellContent(2, 2) === returnCellContent(3, 3)) {
     if(returnCellContent(1, 1) !== ''){
@@ -115,6 +137,7 @@ function checkDiagonal () {
   return false
 }
 
+// return the content of a cell
 function returnCellContent(row, column) {
   const cellId = "#cell-" + row + "-" + column;
   const cell = document.querySelector(cellId);
