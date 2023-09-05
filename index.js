@@ -14,16 +14,44 @@ let turn = 1;
 gameBoard.addEventListener('click', function(event) {
   if (event.target.innerText === '') {
     drawLogic(event.target);
+    const id = event.target.attributes.id.nodeValue;
+    const row = id.split('-')[1];
+    const column = id.split('-')[2];
+    gameLogic(row, column);
+    console.log(returnCellContent(row, column))
   }
 });
 
 function drawLogic (targetCell) {
-
   if (turn%2 === 0) {
   targetCell.innerText = 'O';
   } else {
   targetCell.innerText = 'X';
   }
   turn++;
+}
 
+
+function gameLogic(row, column) {
+}
+
+function checkHorizontal(row, column) {
+  switch (row) {
+    case 1: 
+
+  }
+}
+
+function checkVerticalt() {
+
+}
+
+function checkDiagonal() {
+
+}
+
+function returnCellContent(row, column) {
+  const cellId = "#cell-" + row + "-" + column;
+  const cell = document.querySelector(cellId);
+  return cell.innerText;
 }
