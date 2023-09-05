@@ -50,7 +50,7 @@ function gameLogic () {
 }
 
 function checkHorizonWins () {
-  for (i = 1; i < 4; i++){
+  for (let i = 1; i < 4; i++){
     if (checkHorizontal(i)) {
       info.textContent = `Winner ${checkHorizontal(i)}`
       gameBoard.removeEventListener('click', clickHandler)
@@ -60,7 +60,7 @@ function checkHorizonWins () {
 }
 
 function checkVerticalWins () {
-  for (i = 1; i < 4; i++) {
+  for (let i = 1; i < 4; i++) {
     if (checkVertical(i)) {
       info.textContent = `Winner ${checkVertical(i)}`
       gameBoard.removeEventListener('click', clickHandler)
@@ -80,6 +80,7 @@ function checkDiagonalWins() {
 function checkHorizontal (column) {
   if(returnCellContent(1, column) === returnCellContent(2, column) && returnCellContent(2, column) === returnCellContent(3, column)) {
     if(returnCellContent(1, column) !== ''){
+      highlightWinningColumn(column);
       return returnCellContent(1, column)
     }
   }
@@ -90,6 +91,7 @@ function checkHorizontal (column) {
 function checkVertical (row) {
   if(returnCellContent(row, 1) === returnCellContent(row, 2) && returnCellContent(row, 2) === returnCellContent(row, 3)) {
     if(returnCellContent(row, 1) !== ''){
+      highlightWinningRow(row);
       return returnCellContent(row, 1)
     }
   }
@@ -100,10 +102,12 @@ function checkVertical (row) {
 function checkDiagonal () {
   if(returnCellContent(1, 1) === returnCellContent(2, 2) && returnCellContent(2, 2) === returnCellContent(3, 3)) {
     if(returnCellContent(1, 1) !== ''){
+      highlightWinningDiagonalTopLeftBottomRight();
       return returnCellContent(1, 1)
     }
   } else if (returnCellContent(1, 3) === returnCellContent(2, 2) && returnCellContent(2, 2) === returnCellContent(3, 1)) {
     if(returnCellContent(1, 3) !== ''){
+      highlightWinningDiagonalTopRightBottomLeft();
       return returnCellContent(1, 3)
     }
   }
@@ -115,4 +119,34 @@ function returnCellContent(row, column) {
   const cellId = "#cell-" + row + "-" + column;
   const cell = document.querySelector(cellId);
   return cell.innerText;
+}
+
+function highlightWinningRow (row) {
+  for (let i = 1; i < 4; i++) {
+    highlightWinningCell(row, i);
+  }
+}
+
+function highlightWinningColumn (column) {
+  for (let i = 1; i < 4; i++) {
+    highlightWinningCell(i, column);
+  }
+}
+
+function highlightWinningDiagonalTopLeftBottomRight () {
+  for (let i = 1; i < 4; i++) {
+    highlightWinningCell(i, i);
+  }
+}
+
+function highlightWinningDiagonalTopRightBottomLeft () {
+  for (let i = 1; i < 4; i++) {
+    highlightWinningCell(i, 4-i);
+  }
+}
+
+function highlightWinningCell (row, column) {
+  const cellId = "#cell-" + row + "-" + column;
+  const cell = document.querySelector(cellId);
+  cell.style.backgroundColor = 'green';
 }
